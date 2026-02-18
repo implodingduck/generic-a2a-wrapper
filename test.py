@@ -98,10 +98,14 @@ async def main() -> None:
                 'Failed to fetch the public agent card. Cannot continue.'
             ) from e
 
+        # set x-api-key header for all requests from this client
+        httpx_client.headers.update({'X-API-Key': '123'})
         # --8<-- [start:send_message]
         config = ClientConfig(httpx_client=httpx_client)
         factory = ClientFactory(config)
         client = factory.create(final_agent_card_to_use)
+        
+
         logger.info('Client initialized using ClientFactory.')
 
         # Create a Message object directly
